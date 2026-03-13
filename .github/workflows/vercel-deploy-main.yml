@@ -1,4 +1,4 @@
-name: Vercel Deploy
+name: Vercel Deploy Main
 
 on:
   workflow_dispatch:
