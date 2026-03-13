@@ -1,0 +1,29 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      "**/.next": true,
+      "**/node_modules": true
+    },
+    "search.exclude": {
+      "**/.next": true,
+      "**/node_modules": true
+    },
+    "editor.formatOnSave": true,
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "cSpell.words": [
+      "patri"
+    ]
+  },
+  "extensions": {
+    "recommendations": [
+      "esbenp.prettier-vscode",
+      "bradlc.vscode-tailwindcss",
+      "dbaeumer.vscode-eslint"
+    ]
+  }
+}

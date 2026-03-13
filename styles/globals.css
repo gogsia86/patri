@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg0: #06060b;
+  --bg1: #141420;
+  --accent: #56e1ff;
+  --accent2: #ff9f2e;
+  --termGreen: #83ff9b;
+  --termAmber: #ffbf54;
+}
+
+* {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+html,
+body {
+  min-height: 100%;
+  background:
+    radial-gradient(90% 80% at 20% 0%, #1a1a2b 0%, transparent 60%),
+    radial-gradient(80% 100% at 85% 15%, #1c121b 0%, transparent 55%),
+    linear-gradient(180deg, var(--bg1) 0%, var(--bg0) 100%);
+  color: #ededf5;
+}
+
+body {
+  position: relative;
+  overflow-x: hidden;
+}
+
+@layer components {
+  .px-border {
+    border: 2px solid #09090b;
+    box-shadow:
+      0 0 0 2px #202034,
+      0 0 0 4px #09090b,
+      inset -2px -2px 0 rgba(0, 0, 0, 0.6),
+      inset 2px 2px 0 rgba(255, 255, 255, 0.08);
+  }
+
+  .px-panel {
+    @apply px-border;
+    background:
+      linear-gradient(180deg, rgba(20, 20, 32, 0.95) 0%, rgba(9, 9, 15, 0.95) 100%),
+      repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.02) 0 2px, rgba(0, 0, 0, 0.03) 2px 4px);
+    box-shadow:
+      0 0 0 2px #202034,
+      0 0 0 4px #09090b,
+      inset 0 0 0 1px rgba(255, 255, 255, 0.03),
+      inset 0 -10px 20px rgba(0, 0, 0, 0.4);
+  }
+
+  .crt-overlay {
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    opacity: 0.45;
+    mix-blend-mode: screen;
+  }
+
+  .crt-overlay::before,
+  .crt-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+
+  .crt-overlay::before {
+    background:
+      repeating-linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.05) 0 1px,
+        rgba(0, 0, 0, 0.12) 1px 3px
+      ),
+      linear-gradient(120deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0));
+  }
+
+  .crt-overlay::after {
+    background: radial-gradient(circle at center, transparent 58%, rgba(0, 0, 0, 0.6) 100%);
+  }
+
+  .crt-noise {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.04), transparent 30%),
+      radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.03), transparent 30%);
+    opacity: 0.3;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
