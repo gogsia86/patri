@@ -40,6 +40,12 @@ Set these in: GitHub Repo -> Settings -> Secrets and variables -> Actions
 - `VERCEL_ORG_ID`
 - `VERCEL_PROJECT_ID`
 
+Optional helper:
+
+```powershell
+./scripts/set-vercel-secrets.ps1 -Repo gogsia86/patri
+```
+
 ## 5) Vercel Project Env Vars
 
 Set in Vercel project settings for Production/Preview as needed:
