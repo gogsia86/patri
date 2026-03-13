@@ -16,11 +16,9 @@ function eventLabel(event: PatriEvent) {
 }
 
 export default function AdminEventFeed() {
-  const [events, setEvents] = useState<PatriEvent[]>([]);
+  const [events, setEvents] = useState<PatriEvent[]>(() => getStoredPatriEvents());
 
   useEffect(() => {
-    setEvents(getStoredPatriEvents());
-
     return onPatriEvent((event) => {
       setEvents((prev) => [event, ...prev].slice(0, 100));
     });

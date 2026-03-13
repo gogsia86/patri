@@ -2,7 +2,7 @@
 
 import confetti from 'canvas-confetti';
 import { motion, useReducedMotion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import PixelButton from '@/components/PixelButton';
 import PixelCard from '@/components/PixelCard';
@@ -12,7 +12,13 @@ import { rollLoot } from '@/lib/loot';
 import { deductTokens, getTokens } from '@/lib/storage';
 
 export default function LootBox() {
-  const [tokens, setTokens] = useState<number>(DEFAULT_TOKENS);
+  const [tokens, setTokens] = useState<number>(() => {
+    if (typeof globalThis.window === 'undefined') {
+      return DEFAULT_TOKENS;
+    }
+
+    return getTokens();
+  });
   const [rolling, setRolling] = useState(false);
   const [result, setResult] = useState<string>('');
   const [error, setError] = useState<string>('');
@@ -23,10 +29,6 @@ export default function LootBox() {
   if (!reduceMotion) {
     chestAnimation = rolling ? { rotate: [0, -2, 2, -1, 1, 0], scale: [1, 1.03, 1] } : { rotate: 0, scale: 1 };
   }
-
-  useEffect(() => {
-    setTokens(getTokens());
-  }, []);
 
   const roll = async () => {
     if (rolling) {

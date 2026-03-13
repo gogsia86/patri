@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion } from 'framer-motion';
 import { Trash2 } from 'lucide-react';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 
 import PixelButton from '@/components/PixelButton';
 import PixelCard from '@/components/PixelCard';
@@ -112,17 +112,19 @@ function toLayoutItems(items: PlacedFurniture[]): LayoutGridItem[] {
 }
 
 export default function IsometricRoomGrid() {
-  const [items, setItems] = useState<PlacedFurniture[]>([]);
+  const [items, setItems] = useState<PlacedFurniture[]>(() => {
+    if (typeof globalThis.window === 'undefined') {
+      return [];
+    }
+
+    const stored = safeStorageGet<unknown>(STORAGE_KEYS.layout, []);
+    return normalizeStoredLayout(stored);
+  });
   const [selectedTemplate, setSelectedTemplate] = useState<FurnitureItem>(DEFAULT_TEMPLATE);
   const [status, setStatus] = useState<string>('');
   const containerRef = useRef<HTMLDivElement>(null);
   const reduceMotion = useReducedMotion();
   const layoutItems = useMemo(() => toLayoutItems(items), [items]);
-
-  useEffect(() => {
-    const stored = safeStorageGet<unknown>(STORAGE_KEYS.layout, []);
-    setItems(normalizeStoredLayout(stored));
-  }, []);
 
   const board = useMemo(() => {
     const width = GRID_SIZE * TILE_WIDTH;

@@ -15,11 +15,9 @@ export function trackPatriAction(type: PatriEventType, detail: Omit<PatriEvent, 
 }
 
 export function usePatriEventHistory() {
-  const [events, setEvents] = useState<PatriEvent[]>([]);
+  const [events, setEvents] = useState<PatriEvent[]>(() => getStoredPatriEvents());
 
   useEffect(() => {
-    setEvents(getStoredPatriEvents());
-
     return onPatriEvent((event) => {
       setEvents((prev) => [event, ...prev].slice(0, 100));
     });
